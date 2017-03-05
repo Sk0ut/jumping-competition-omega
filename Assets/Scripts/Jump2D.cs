@@ -6,8 +6,6 @@ public class Jump2D : MonoBehaviour {
 
 	public bool onGround;
 	public float jumpHeight = 300f;
-	public float groundRadius = .2f;	
-	public LayerMask ground;
 
 	// Object which will check if the player is on the ground
 	public Transform checkGround;
@@ -17,13 +15,21 @@ public class Jump2D : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 	}
-	// Update is called once per frame
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Ground") {
+			onGround = true;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Ground") {
+			onGround = false;
+		}
+	}
+
 	void FixedUpdate () {
-		onGround = Physics2D.OverlapCircle (checkGround.position, groundRadius, ground);
-
-		float velY = rb.velocity.y;
-
-		if (onGround && velY <= 0) {
+		if (onGround) {
 			rb.velocity = new Vector2 (0, 0);
 			rb.AddForce (new Vector2 (0, jumpHeight));
 		}
