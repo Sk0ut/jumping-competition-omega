@@ -2,27 +2,28 @@
 using UnityEngine;
 
 public class GeneratePlatformsScript : MonoBehaviour {
-    public int posY = (int)GameObject.Find("background").GetComponent<ScrollingScript>().transform.position.y;
+	public Camera camera;
+	private float posY;
+	public GameObject prefab;
+	public float gapY = 1f;
 
 	// Use this for initialization
 	void Start () {
-		
+		posY = camera.transform.position.y + camera.orthographicSize;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        var curPosY = (int)GameObject.Find("background").GetComponent<ScrollingScript>().transform.position.y;
+		float curPosY = camera.transform.position.y + camera.orthographicSize;
 
-        if (posY - curPosY != 0)
+        if (curPosY - posY > gapY)
         {
-            var dist = (transform.position - Camera.main.transform.position).z;
+			Debug.Log ("Time to generate");
             posY = curPosY;
-            Vector3 position = new Vector3(UnityEngine.Random.value * Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x,
-                Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).y,
-                dist);
-            GameObject obj = Instantiate(Resources.Load("Prefabs/Platform")) as GameObject;
+            Vector3 position = new Vector3(UnityEngine.Random.value * 12f - 6f,
+               	curPosY, 0);
+            GameObject obj = Instantiate(prefab);
             obj.transform.position = position;
-
         }
     }
 }
