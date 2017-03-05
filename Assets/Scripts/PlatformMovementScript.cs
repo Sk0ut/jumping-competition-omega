@@ -18,8 +18,6 @@ public class PlatformMovementScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        speed.y = GameObject.Find("background").GetComponent<ScrollingScript>().speed.y;
-
         movement = new Vector2(
           speed.x * direction.x,
           speed.y * direction.y);

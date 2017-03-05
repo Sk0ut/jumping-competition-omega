@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class GeneratePlatformsScript : MonoBehaviour {
 	public Camera camera;
-	public GameObject prefab;
-	public float gapY = 1f;
-	public int poolSize = 5;
+	public GameObject prefab1;
+    public GameObject prefab2;
+	public int poolSize = 20;
+    public float gapY = 1f;
 
-	private float posY;
+    private float posY;
 	private GameObject[] objectPool;
 
 	// Use this for initialization
 	void Start () {
 		posY = camera.transform.position.y + camera.orthographicSize;
 		objectPool = new GameObject[poolSize];
-		for (int i = 0; i < objectPool.Length; ++i) {
-			objectPool [i] = Instantiate (prefab);
-			objectPool [i].SetActive (false);
-		}
+        generatePlatforms();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +26,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
         if (curPosY - posY > gapY)
         {
 			Debug.Log ("Time to generate");
+            generatePlatforms();
             Vector3 position = new Vector3(UnityEngine.Random.value * 12f - 6f,
                	curPosY, 0);
 			if (generatePlatform (position)) {
@@ -55,4 +54,38 @@ public class GeneratePlatformsScript : MonoBehaviour {
 			}
 		}
 	}
+
+    void generatePlatforms()
+    {
+        var dist = (transform.position - Camera.main.transform.position).z;
+        var bottomBorder = Camera.main.ViewportToWorldPoint(
+               new Vector3(0, 0, dist)
+              ).y;
+        for (int i = 0; i < objectPool.Length; ++i)
+        {
+            if(objectPool[i] == null)
+            {
+                if (UnityEngine.Random.Range(0, 2) == 0)
+                    objectPool[i] = Instantiate(prefab1);
+                else
+                    objectPool[i] = Instantiate(prefab2);
+                objectPool[i].SetActive(false);
+            }
+
+            if (objectPool[i].transform.position.y <= bottomBorder)
+            {
+                Destroy(objectPool[i]);
+
+                if (UnityEngine.Random.Range(0, 2) == 0)
+                {
+                    objectPool[i] = Instantiate(prefab1);
+                }
+                else
+                {
+                    objectPool[i] = Instantiate(prefab2);
+                }
+                objectPool[i].SetActive(false);
+            }
+        }
+    }
 }
