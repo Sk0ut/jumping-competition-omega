@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement2D : MonoBehaviour {
 
+	public string axis = "Horizontal";
 	public float speed = 10f;
 	private Rigidbody2D rb;
 
@@ -15,7 +16,7 @@ public class Movement2D : MonoBehaviour {
 	void Update () {
 		
 		// Allows player to move  using left and right arrows
-		float h = Input.GetAxis ("Horizontal");
+		float h = Input.GetAxis (axis);
 		// Updates player's position
 		rb.velocity = new Vector2 (h * speed, rb.velocity.y);
 	}

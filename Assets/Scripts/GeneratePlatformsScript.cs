@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class GeneratePlatformsScript : MonoBehaviour {
-	public Camera camera;
+	public Camera playerCamera;
 	public GameObject prefab1;
     public GameObject prefab2;
     public float mean = 2f;
@@ -14,7 +14,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		posY = camera.transform.position.y + camera.orthographicSize;
+		posY = playerCamera.transform.position.y + playerCamera.orthographicSize;
 		objectPool = new GameObject[poolSize];
         generatePlatforms();
 
@@ -22,14 +22,14 @@ public class GeneratePlatformsScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float curPosY = camera.transform.position.y + camera.orthographicSize;
+		float curPosY = playerCamera.transform.position.y + playerCamera.orthographicSize;
 		clearOffScreen ();
 
         if (curPosY - posY > generateNormalRandom(mean, sigma))
         {
 			Debug.Log ("Time to generate");
             generatePlatforms();
-            Vector3 position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
+            Vector3 position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
                	curPosY, 0);
 			if (generatePlatform (position)) {
 				Debug.Log ("New object");
@@ -51,7 +51,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
 
 	void clearOffScreen() {
 		for (int i = 0; i < objectPool.Length; ++i) {
-			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < camera.transform.position.y - camera.orthographicSize) {
+			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < playerCamera.transform.position.y - playerCamera.orthographicSize) {
 				objectPool[i].SetActive (false);
 			}
 		}
@@ -59,8 +59,8 @@ public class GeneratePlatformsScript : MonoBehaviour {
 
     void generatePlatforms()
     {
-        var dist = (transform.position - Camera.main.transform.position).z;
-        var bottomBorder = Camera.main.ViewportToWorldPoint(
+        var dist = (transform.position - playerCamera.transform.position).z;
+        var bottomBorder = playerCamera.ViewportToWorldPoint(
                new Vector3(0, 0, dist)
               ).y;
         for (int i = 0; i < objectPool.Length; ++i)
