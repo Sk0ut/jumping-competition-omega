@@ -9,7 +9,7 @@ public class Jump2D : MonoBehaviour {
 
 	// Object which will check if the player is on the ground
 	public Transform checkGround;
-	private Rigidbody2D rb;
+	public static Rigidbody2D rb;
 
 	void Start()
 	{
