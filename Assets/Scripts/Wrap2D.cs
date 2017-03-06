@@ -5,13 +5,15 @@ using UnityEngine;
 public class Wrap2D : MonoBehaviour {
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
+	    var screenPos = Camera.main.WorldToViewportPoint(transform.position);
 
-		if (transform.position.x <= -6f) {
-			transform.position = new Vector3 (6f, transform.position.y, transform.position.z);
+		if (screenPos.x < 0) {
+			transform.position = new Vector3 (Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x, transform.position.y, transform.position.z);
 		}
-		else if (transform.position.x >= 6f) {
-			transform.position = new Vector3 (-6f, transform.position.y, transform.position.z);
+		else if (screenPos.x > 1) {
+			transform.position = new Vector3 (Camera.main.ViewportToWorldPoint(new Vector3(0, 0)).x, transform.position.y, transform.position.z);
 		}
 	}
 }

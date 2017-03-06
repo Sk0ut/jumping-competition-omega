@@ -27,7 +27,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
         {
 			Debug.Log ("Time to generate");
             generatePlatforms();
-            Vector3 position = new Vector3(UnityEngine.Random.value * 12f - 6f,
+            Vector3 position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
                	curPosY, 0);
 			if (generatePlatform (position)) {
 				Debug.Log ("New object");
@@ -38,9 +38,9 @@ public class GeneratePlatformsScript : MonoBehaviour {
 
 	bool generatePlatform(Vector3 position){
 		for (int i = 0; i < objectPool.Length; ++i) {
-			if (!objectPool [i].activeSelf) {
-				objectPool [i].transform.position = position;
-				objectPool [i].SetActive (true);
+			if (!objectPool[i].activeSelf) {
+				objectPool[i].transform.position = position;
+				objectPool[i].SetActive (true);
 				return true;
 			}
 		}
@@ -49,8 +49,8 @@ public class GeneratePlatformsScript : MonoBehaviour {
 
 	void clearOffScreen() {
 		for (int i = 0; i < objectPool.Length; ++i) {
-			if (objectPool [i].activeSelf && objectPool[i].transform.position.y < camera.transform.position.y - camera.orthographicSize) {
-				objectPool [i].SetActive (false);
+			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < camera.transform.position.y - camera.orthographicSize) {
+				objectPool[i].SetActive (false);
 			}
 		}
 	}

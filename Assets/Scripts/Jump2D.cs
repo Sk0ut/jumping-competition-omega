@@ -17,19 +17,19 @@ public class Jump2D : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Ground") {
+		if (coll.gameObject.CompareTag("Ground")) {
 			onGround = true;
 		}
 	}
 
 	void OnCollisionExit2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Ground") {
+		if (coll.gameObject.CompareTag("Ground")) {
 			onGround = false;
 		}
 	}
 
 	void FixedUpdate () {
-		if (onGround) {
+		if (onGround && rb.velocity.y <= 0) {
 			rb.velocity = new Vector2 (0, 0);
 			rb.AddForce (new Vector2 (0, jumpHeight));
 		}
