@@ -5,8 +5,9 @@ public class GeneratePlatformsScript : MonoBehaviour {
 	public Camera camera;
 	public GameObject prefab1;
     public GameObject prefab2;
-	public int poolSize = 20;
-    public float gapY = 1f;
+    public float mean = 2f;
+    public float sigma = 1f;
+    public int poolSize = 10;
 
     private float posY;
 	private GameObject[] objectPool;
@@ -16,6 +17,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
 		posY = camera.transform.position.y + camera.orthographicSize;
 		objectPool = new GameObject[poolSize];
         generatePlatforms();
+
 	}
 	
 	// Update is called once per frame
@@ -23,7 +25,7 @@ public class GeneratePlatformsScript : MonoBehaviour {
 		float curPosY = camera.transform.position.y + camera.orthographicSize;
 		clearOffScreen ();
 
-        if (curPosY - posY > gapY)
+        if (curPosY - posY > generateNormalRandom(mean, sigma))
         {
 			Debug.Log ("Time to generate");
             generatePlatforms();
@@ -87,5 +89,17 @@ public class GeneratePlatformsScript : MonoBehaviour {
                 objectPool[i].SetActive(false);
             }
         }
+    }
+
+    public static float generateNormalRandom(float mu, float sigma)
+    {
+        float rand1 = UnityEngine.Random.Range(0.0f, 1.0f);
+        float rand2 = UnityEngine.Random.Range(0.0f, 1.0f);
+
+        float n = Mathf.Sqrt(-2.0f * Mathf.Log(rand1)) * Mathf.Cos((2.0f * Mathf.PI) * rand2);
+        float ret = mu + sigma * n;
+        if (ret < 1)
+            return 1;
+        else return ret;
     }
 }
