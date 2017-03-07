@@ -7,8 +7,8 @@ public class PlatformMovementScript : MonoBehaviour {
     public Vector2 speed = new Vector2(5, 0);
     public Vector2 direction = new Vector2(-1, -1);
 
-    private Rigidbody2D rigidbodyComponent;
     public Vector2 movement;
+    private Rigidbody2D rigidbodyComponent;
 
     // Use this for initialization
     void Start () {
