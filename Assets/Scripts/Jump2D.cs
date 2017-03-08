@@ -17,13 +17,13 @@ public class Jump2D : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.CompareTag("Ground")) {
+		if (coll.gameObject.CompareTag("Plataform_static") || coll.gameObject.CompareTag("Plataform_move")) {
 			onGround = true;
 		}
 	}
 
 	void OnCollisionExit2D(Collision2D coll) {
-		if (coll.gameObject.CompareTag("Ground")) {
+		if (coll.gameObject.CompareTag("Plataform_static") || coll.gameObject.CompareTag("Plataform_move")) {
 			onGround = false;
 		}
 	}
