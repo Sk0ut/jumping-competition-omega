@@ -5,6 +5,7 @@ using System.Linq;
 
 public class GeneratePlatformsPowerUps : MonoBehaviour {
 	public Camera playerCamera;
+	public GameBorderObserver gameBorderObserver;
 	public GameObject prefab1;
     public GameObject prefab2;
     public float mean = 2f;
@@ -21,7 +22,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		posY = playerCamera.transform.position.y + playerCamera.orthographicSize;
+		posY = gameBorderObserver.Top;
 		objectPool = new GameObject[poolSize];
 		// Adicionado //
 		powerUpPool = new List<GameObject>();
@@ -31,7 +32,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float curPosY = playerCamera.transform.position.y + playerCamera.orthographicSize;
+		float curPosY = gameBorderObserver.Top;
 		clearOffScreen ();
 
         if (curPosY - posY > generateNormalRandom(mean, sigma))
@@ -64,7 +65,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
 	void clearOffScreen() {
 		for (int i = 0; i < objectPool.Length; ++i) {
-			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < playerCamera.transform.position.y - playerCamera.orthographicSize) {
+			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < gameBorderObserver.Bottom) {
 				objectPool[i].SetActive (false);
 			}
 		}
@@ -124,9 +125,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 	void checkPowerUps()
 	{
 		powerUpPool = GameObject.FindGameObjectsWithTag("Power_Up").ToList(); 
-
-		var dist = (transform.position - playerCamera.transform.position).z;
-		var bottomBorder = playerCamera.ViewportToWorldPoint(new Vector3(0, 0, dist)).y;
+		var bottomBorder = gameBorderObserver.Bottom;
 
 		for (int i = 0; i < powerUpPool.Count; ++i) {
 			if (powerUpPool[i].transform.position.y <= bottomBorder) {
