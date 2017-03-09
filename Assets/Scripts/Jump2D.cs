@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jump2D : MonoBehaviour {
 
 	public bool onGround;
-	public float jumpHeight = 300f;
+	public static float jumpHeight = 450f;
 
 	// Object which will check if the player is on the ground
 	public Transform checkGround;
