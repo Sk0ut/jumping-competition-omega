@@ -130,7 +130,6 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 		for (int i = 0; i < powerUpPool.Count; ++i) {
 			if (powerUpPool[i].transform.position.y <= bottomBorder) {
 				Destroy(powerUpPool[i]);
-
 				powerUpPool[i].SetActive(false);
 			}
 		}
