@@ -9,7 +9,7 @@ public class GenerateEnemies : MonoBehaviour {
     public GameObject enemyPrefab;
     public Camera playerCamera;
 
-    public float currentCooldown;
+    private float currentCooldown;
     private float posY;
 
     public GameBorderObserver gameBorderObserver;
