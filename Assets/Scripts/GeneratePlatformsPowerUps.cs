@@ -11,12 +11,12 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
     public float mean = 2f;
     public float sigma = 1f;
     public int poolSize = 10;
+    public int JumpBoostFrequency = 10;
 
     private float posY;
 	private GameObject[] objectPool;
 	// Adicionado //
-	public GameObject powerUp_move;
-	public GameObject powerUp_stop;
+	public GameObject PowerUp;
 	List<GameObject> powerUpPool;
 	// Adicionado //
 
@@ -29,7 +29,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 		// Adicionado //
         generatePlatforms();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		float curPosY = gameBorderObserver.Top;
@@ -39,10 +39,10 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
         {
 			Debug.Log ("Time to generate");
             generatePlatforms();
-			checkPowerUps();
-            Vector3 position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
-               	curPosY, 0);
-			if (generatePlatform (position)) {
+//			checkPowerUps();
+            var position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
+               	curPosY);
+			if (generatePlatform(position)) {
 				Debug.Log ("New object");
 				posY = curPosY;
 			}
@@ -52,9 +52,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 	bool generatePlatform(Vector3 position){
 		for (int i = 0; i < objectPool.Length; ++i) {
 			if (!objectPool[i].activeSelf) {
-				// Adicionado //
-				generatePowerUp(position, objectPool[i]);
-				// Adicionado //
+				generatePowerUp(objectPool[i]);
 				objectPool[i].transform.position = position;
 				objectPool[i].SetActive (true);
 				return true;
@@ -73,18 +71,15 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
     void generatePlatforms()
     {
-        var dist = (transform.position - playerCamera.transform.position).z;
-        var bottomBorder = playerCamera.ViewportToWorldPoint(
-               new Vector3(0, 0, dist)
-              ).y;
+        var bottomBorder = playerCamera.ViewportToWorldPoint(Vector3.zero).y;
         for (int i = 0; i < objectPool.Length; ++i)
         {
             if(objectPool[i] == null)
             {
 				if (UnityEngine.Random.Range (0, 2) == 0) {
-					objectPool [i] = Instantiate (prefab1);
+					objectPool [i] = Instantiate(prefab1);
 				} else {
-					objectPool [i] = Instantiate (prefab2);
+					objectPool [i] = Instantiate(prefab2);
 				}
                 objectPool[i].SetActive(false);
             }
@@ -105,23 +100,13 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
             }
         }
     }
-	// Adicionado //
-	void generatePowerUp(Vector3 position, GameObject platform) {
-		if (UnityEngine.Random.Range (0, 6) == 0) {
-			GameObject powUp;
-
-			if (platform.CompareTag ("Plataform_static"))
-				powUp = Instantiate (powerUp_stop);
-			else if (platform.CompareTag ("Plataform_move"))
-				powUp = Instantiate (powerUp_move);
-			else
-				powUp = new GameObject ();
-
-			powUp.transform.position = position + new Vector3(0,0.6f,0);
+	void generatePowerUp(GameObject platform) {
+		if (UnityEngine.Random.Range (0, 100) <= JumpBoostFrequency) {
+		    var powUp = Instantiate(PowerUp);
+		    powUp.transform.SetParent(platform.transform, false);
 			powerUpPool.Add(powUp);
 		}
 	}
-
 	void checkPowerUps()
 	{
 		powerUpPool = GameObject.FindGameObjectsWithTag("Power_Up").ToList(); 

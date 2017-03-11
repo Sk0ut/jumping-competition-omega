@@ -1,44 +1,40 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpJump : MonoBehaviour {
+public class PowerUpJump : MonoBehaviour
+{
+    public int Timer = 5;
+    public float JumpBoost = 1.8f;
 
-	public int timer = 5;
+    private bool _withBoostJump;
 
-	bool withBoostJump;
+    private void Start()
+    {
+        _withBoostJump = false;
+    }
 
-	// Use this for initialization
-	void Start () {
-		withBoostJump = false;
-	}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Power_Up")) return;
 
-	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.CompareTag("Power_Up")) {
-			Debug.Log ("Apanhou powerup!");
-			Destroy(coll.gameObject);
-			withBoostJump = true;
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (withBoostJump) {
-			Debug.Log ("Boost Jump!");
-			StartCoroutine (JumpBoost ());
-		} 
-	}
+        Destroy(other.gameObject);
+        _withBoostJump = true;
+        StopCoroutine("Activate");
+    }
 
-	IEnumerator JumpBoost(){
-		Debug.Log ("JumpHeight increased");
-		Jump2D.jumpHeight = 700;
-		yield return new WaitForSeconds (timer);
-		withBoostJump = false;
-		CancelJumpBoost ();
-	}
+    private void Update()
+    {
+        if (_withBoostJump)
+        {
+            StartCoroutine("Activate");
+        }
+    }
 
-	void CancelJumpBoost(){
-		Debug.Log ("JumpHeight decreased");
-		Jump2D.jumpHeight = 450;
-	}
+    private IEnumerator Activate()
+    {
+        Jump2D.jumpHeight = 700;
+        yield return new WaitForSeconds(Timer);
+        _withBoostJump = false;
+        Jump2D.jumpHeight = 450;
+    }
 }
