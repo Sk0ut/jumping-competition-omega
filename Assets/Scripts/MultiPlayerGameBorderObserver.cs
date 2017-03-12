@@ -16,14 +16,12 @@ public class MultiPlayerGameBorderObserver : GameBorderObserver
 		get { return Mathf.Min(player1Camera.transform.position.y, player2Camera.transform.position.y) - player1Camera.orthographicSize; }
 	}
 
-	// @TODO
 	public override float Left {
-		get { return -10; }
+		get { return player1Camera.transform.position.x - player1Camera.orthographicSize * player1Camera.aspect; }
 	}
 
-	// @TODO
 	public override float Right {
-		get { return 10; }
+		get { return player1Camera.transform.position.x + player1Camera.orthographicSize * player1Camera.aspect; }
 	}
 }
 

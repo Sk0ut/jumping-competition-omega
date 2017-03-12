@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class GeneratePlatformsPowerUps : MonoBehaviour {
-	public Camera playerCamera;
 	public GameBorderObserver gameBorderObserver;
 	public GameObject prefab1;
     public GameObject prefab2;
@@ -40,7 +39,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 			Debug.Log ("Time to generate");
             generatePlatforms();
 			checkPowerUps();
-            Vector3 position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
+			Vector3 position = new Vector3(UnityEngine.Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
                	curPosY, 0);
 			if (generatePlatform (position)) {
 				Debug.Log ("New object");
@@ -73,10 +72,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
     void generatePlatforms()
     {
-        var dist = (transform.position - playerCamera.transform.position).z;
-        var bottomBorder = playerCamera.ViewportToWorldPoint(
-               new Vector3(0, 0, dist)
-              ).y;
+		float bottomBorder = gameBorderObserver.Bottom;
         for (int i = 0; i < objectPool.Length; ++i)
         {
             if(objectPool[i] == null)

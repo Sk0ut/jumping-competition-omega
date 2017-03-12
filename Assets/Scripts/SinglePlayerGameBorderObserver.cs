@@ -12,14 +12,12 @@ public class SinglePlayerGameBorderObserver : GameBorderObserver {
 		get { return playerCamera.transform.position.y - playerCamera.orthographicSize; }
 	}
 
-	// @TODO
 	public override float Left {
-		get { return -10; }
+		get { return playerCamera.transform.position.x - playerCamera.orthographicSize * playerCamera.aspect; }
 	}
 
-	// @TODO
 	public override float Right {
-		get { return 10; }
+		get { return playerCamera.transform.position.x + playerCamera.orthographicSize * playerCamera.aspect; }
 	}
 }
 
