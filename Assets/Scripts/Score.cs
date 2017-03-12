@@ -20,8 +20,8 @@ public class Score : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Jump2D.rb.position.y > score)
-			score = (int)Jump2D.rb.position.y;
+		if (transform.position.y > score)
+			score = (int) transform.position.y;
 
 		scoreText.text	= "Score: " + score;
 		highscoreText.text	= "HighScore: " + highscore;

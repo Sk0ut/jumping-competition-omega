@@ -9,11 +9,12 @@ public class Jump2D : MonoBehaviour {
 
 	// Object which will check if the player is on the ground
 	public Transform checkGround;
-	public static Rigidbody2D rb;
+	public Rigidbody2D rb;
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		onGround = false;
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
