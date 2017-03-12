@@ -24,7 +24,6 @@ public class ValterMovementScript : MonoBehaviour {
         var leftBorder = Camera.main.ViewportToWorldPoint(
             new Vector3(0, 0, dist)
         ).x;
-
         var topBorder = Camera.main.ViewportToWorldPoint(
            new Vector3(0, 0, dist)
        ).y;
@@ -33,45 +32,49 @@ public class ValterMovementScript : MonoBehaviour {
         ).y;
 
         timeSinceLastSec += Time.deltaTime;
+        if (transform.position.x <= leftBorder)
+            direction = new Vector2(1, -1);
+        else if (transform.position.x >= rightBorder)
+            direction = new Vector2(-1, -1);
+        else if (transform.position.y <= topBorder)
+            direction = new Vector2(0, -1);
+        else if (transform.position.y >= bottomBorder)
+            direction = new Vector2(0, 1);
         if (timeSinceLastSec < 1) {
             return;
         }
         if (speed.x != 0) {
-            if (Random.Range(0f, 1f) < 0.2)
+            if (Random.Range(0, 100) < 40)
             {
                 direction.x = -direction.x;
                 return;
             }
-            if (Random.Range(0, 1) < 0.2)
+            if (Random.Range(0, 100) < 40)
             {
                 speed = new Vector2(0, 1);
             }
-            if (transform.position.x <= leftBorder)
-                direction = new Vector2(1, -1);
-            else if (transform.position.x >= rightBorder)
-                direction = new Vector2(-1, -1);
             timeSinceLastSec -= 1;
         }
         else if(speed.y != 0) {
-            if (Random.Range(0f, 1f) < 0.2)
+            if (Random.Range(0, 100) < 40)
             {
                 direction.y = -direction.y;
                 return;
             }
-            if (Random.Range(0, 1) < 0.2) {
+            if (Random.Range(0, 100) < 40) {
                 speed = new Vector2(1, 0);
             }
-            if (transform.position.y <= topBorder)
-                direction = new Vector2(0, 1);
-            else if (transform.position.y >= bottomBorder)
-                direction = new Vector2(0, -1);
             timeSinceLastSec -= 1;
         }
 
         movement = new Vector2(
             speed.x * direction.x,
             speed.y * direction.y);
+    }
 
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 
     void FixedUpdate()

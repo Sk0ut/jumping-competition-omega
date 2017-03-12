@@ -1,44 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlatformMovementScript : MonoBehaviour {
+public class PlatformMovementScript : MonoBehaviour
+{
+    public Vector2 Speed = new Vector2(5, 0);
+    public Vector2 Direction = new Vector2(-1, -1);
 
-    public Vector2 speed = new Vector2(5, 0);
-    public Vector2 direction = new Vector2(-1, -1);
+    public Vector2 Movement;
+    private float _width;
 
-    public Vector2 movement;
-    private Rigidbody2D rigidbodyComponent;
-
-    // Use this for initialization
-    void Start () {
-    }
-
-    // Update is called once per frame
-    void Update () {
-        movement = new Vector2(
-            speed.x * direction.x,
-            speed.y * direction.y);
-
-        var dist = (transform.position - Camera.main.transform.position).z;
-        var rightBorder = Camera.main.ViewportToWorldPoint(
-            new Vector3(1, 0, dist)
-        ).x;
-        var leftBorder = Camera.main.ViewportToWorldPoint(
-            new Vector3(0, 0, dist)
-        ).x;
-
-        if (transform.position.x <= leftBorder)
-            direction = new Vector2(1, -1);
-        else if (transform.position.x >= rightBorder)
-            direction = new Vector2(-1, -1);
-    }
-
-    void FixedUpdate()
+    private void Start()
     {
-        if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
+        _width = GetComponent<SpriteRenderer>().bounds.size.x;
+    }
 
-        // Apply movement to the rigidbody
-        rigidbodyComponent.velocity = movement;
+    private void Update()
+    {
+        Movement = new Vector2(
+            Speed.x * Direction.x,
+            Speed.y * Direction.y);
+
+        var leftSide = Camera.main.WorldToViewportPoint(transform.position - new Vector3(_width / 2, 0)).x;
+        var rightSide = Camera.main.WorldToViewportPoint(transform.position + new Vector3(_width / 2, 0)).x;
+
+        var tmp = transform.position;
+        if (leftSide <= 0)
+        {
+            tmp.x = (Camera.main.ViewportToWorldPoint(new Vector3(0, 0)) + new Vector3(_width / 2, 0)).x;
+            Direction.x = 1;
+        }
+        else if (rightSide >= 1)
+        {
+            tmp.x = (Camera.main.ViewportToWorldPoint(new Vector3(1, 0)) - new Vector3(_width / 2, 0)).x;
+            Direction.x = -1;
+        }
+
+        transform.position = tmp;
+
+    }
+
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().velocity = Movement;
     }
 }

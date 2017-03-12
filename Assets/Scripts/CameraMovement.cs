@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour
         float delta = player.transform.position.y - transform.position.y;
         if (delta > 0)
         {
-            transform.Translate(new Vector3(0, delta * Time.deltaTime, 0));
+            transform.Translate(new Vector3(0, delta * 2 * Time.deltaTime, 0));
         }
     }
 }
