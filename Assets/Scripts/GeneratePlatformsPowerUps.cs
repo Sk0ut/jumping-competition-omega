@@ -42,22 +42,11 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
         {
 			Debug.Log ("Time to generate");
             generatePlatforms();
-<<<<<<< HEAD
-<<<<<<< HEAD
-			checkPowerUps();
 			Vector3 position = new Vector3(UnityEngine.Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
                	curPosY, 0);
-			if (generatePlatform (position)) {
-=======
-//			checkPowerUps();
-=======
 			checkPowerUps();
 			checkDebuffs ();
->>>>>>> d835ddd9d9e55fffd43819d2cafc074e27b061d4
-            var position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
-               	curPosY);
 			if (generatePlatform(position)) {
->>>>>>> 9b8c495cca44937e39abf1b6d2aaf8864eaa3076
 				Debug.Log ("New object");
 				posY = curPosY;
 			}
@@ -93,11 +82,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
     void generatePlatforms()
     {
-<<<<<<< HEAD
 		float bottomBorder = gameBorderObserver.Bottom;
-=======
-        var bottomBorder = playerCamera.ViewportToWorldPoint(Vector3.zero).y;
->>>>>>> 9b8c495cca44937e39abf1b6d2aaf8864eaa3076
         for (int i = 0; i < objectPool.Length; ++i)
         {
             if(objectPool[i] == null)

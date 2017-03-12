@@ -32,7 +32,6 @@ public class Score : MonoBehaviour {
 
 	public void checkHighScore() {
 		if (score > highscore) {
-			Debug.Log ("Score saved");
 
 			PlayerPrefs.SetInt ("Player_HighScore", score);
 		}
