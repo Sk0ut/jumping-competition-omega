@@ -10,13 +10,16 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
     public float mean = 2f;
     public float sigma = 1f;
     public int poolSize = 10;
-    public int JumpBoostFrequency = 10;
+	public int JumpBoostFrequency = 10;
+	public int DebuffFrequency = 10;
 
     private float posY;
 	private GameObject[] objectPool;
 	// Adicionado //
 	public GameObject PowerUp;
 	List<GameObject> powerUpPool;
+	public GameObject Debuff;
+	List<GameObject> debuffPool;
 	// Adicionado //
 
 	// Use this for initialization
@@ -25,6 +28,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 		objectPool = new GameObject[poolSize];
 		// Adicionado //
 		powerUpPool = new List<GameObject>();
+		debuffPool = new List<GameObject>();
 		// Adicionado //
         generatePlatforms();
 	}
@@ -39,12 +43,17 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 			Debug.Log ("Time to generate");
             generatePlatforms();
 <<<<<<< HEAD
+<<<<<<< HEAD
 			checkPowerUps();
 			Vector3 position = new Vector3(UnityEngine.Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
                	curPosY, 0);
 			if (generatePlatform (position)) {
 =======
 //			checkPowerUps();
+=======
+			checkPowerUps();
+			checkDebuffs ();
+>>>>>>> d835ddd9d9e55fffd43819d2cafc074e27b061d4
             var position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(UnityEngine.Random.value, 0)).x,
                	curPosY);
 			if (generatePlatform(position)) {
@@ -58,7 +67,13 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 	bool generatePlatform(Vector3 position){
 		for (int i = 0; i < objectPool.Length; ++i) {
 			if (!objectPool[i].activeSelf) {
-				generatePowerUp(objectPool[i]);
+				int rnd = UnityEngine.Random.Range (0, 100);
+
+				if (rnd < 50)
+					generatePowerUp (objectPool [i]);
+				else
+					generateDebuff (objectPool [i]);
+				
 				objectPool[i].transform.position = position;
 				objectPool[i].SetActive (true);
 				return true;
@@ -69,7 +84,8 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
 	void clearOffScreen() {
 		for (int i = 0; i < objectPool.Length; ++i) {
-			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < gameBorderObserver.Bottom) {
+			if (objectPool[i] != null)
+			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < gameBorderObserver.Bottom ) {
 				objectPool[i].SetActive (false);
 			}
 		}
@@ -126,6 +142,26 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 			if (powerUpPool[i].transform.position.y <= bottomBorder) {
 				Destroy(powerUpPool[i]);
 				powerUpPool[i].SetActive(false);
+			}
+		}
+	}
+
+	void generateDebuff(GameObject platform) {
+		if (UnityEngine.Random.Range (0, 100) <= DebuffFrequency) {
+			var debff = Instantiate(Debuff);
+			debff.transform.SetParent(platform.transform, false);
+			debuffPool.Add(debff);
+		}
+	}
+	void checkDebuffs()
+	{
+		debuffPool = GameObject.FindGameObjectsWithTag("Debuff").ToList(); 
+		var bottomBorder = gameBorderObserver.Bottom;
+
+		for (int i = 0; i < debuffPool.Count; ++i) {
+			if (debuffPool[i].transform.position.y <= bottomBorder) {
+				Destroy(debuffPool[i]);
+				debuffPool[i].SetActive(false);
 			}
 		}
 	}
