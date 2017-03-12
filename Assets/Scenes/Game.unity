@@ -140,8 +140,8 @@ MonoBehaviour:
   poolSize: 10
   JumpBoostFrequency: 10
   DebuffFrequency: 10
-  PowerUp: {fileID: 0}
-  Debuff: {fileID: 0}
+  PowerUp: {fileID: 1341437299185620, guid: 4db6fd5371d084812a1e7eae56040c84, type: 2}
+  Debuff: {fileID: 1290067221382898, guid: f8ed8adb7e6a9dc469e7835fc531f431, type: 2}
 --- !u!4 &16599435
 Transform:
   m_ObjectHideFlags: 0
