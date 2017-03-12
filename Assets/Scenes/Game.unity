@@ -138,7 +138,10 @@ MonoBehaviour:
   mean: 3
   sigma: 1
   poolSize: 10
+  JumpBoostFrequency: 10
+  DebuffFrequency: 10
   PowerUp: {fileID: 1341437299185620, guid: 4db6fd5371d084812a1e7eae56040c84, type: 2}
+  Debuff: {fileID: 1290067221382898, guid: f8ed8adb7e6a9dc469e7835fc531f431, type: 2}
 --- !u!4 &16599435
 Transform:
   m_ObjectHideFlags: 0
@@ -468,6 +471,7 @@ GameObject:
   - component: {fileID: 756958174}
   - component: {fileID: 756958176}
   - component: {fileID: 756958175}
+  - component: {fileID: 756958177}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -611,8 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f429237adc0a55b4fb5081fdb78ec785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Timer: 5
   JumpBoost: 1.8
-  timer: 5
 --- !u!82 &756958175
 AudioSource:
   m_ObjectHideFlags: 0
@@ -706,6 +710,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceSound: {fileID: 8300000, guid: c74200c2f12f2f64b95ffa59aba7cf35, type: 3}
   JumpBoostSound: {fileID: 8300000, guid: b89c100016b2b694c8db39310d596313, type: 3}
+--- !u!114 &756958177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756958166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fecba2f333b3e0409206667e952fe45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlatformsToBeDestroyed: 1
 --- !u!1 &1031679178 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1235194851738406, guid: 67a48f75065b50a4fa09a94969df36ab,

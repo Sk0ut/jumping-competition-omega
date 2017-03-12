@@ -8,6 +8,7 @@ TagManager:
   - Power_Up
   - Plataform_static
   - Plataform_move
+  - Debuff
   layers:
   - Default
   - TransparentFX
