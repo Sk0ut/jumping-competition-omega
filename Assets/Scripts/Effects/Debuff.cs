@@ -8,6 +8,9 @@ public class Debuff : MonoBehaviour {
 	public int PlatformsToBeDestroyed = 1;
 	private List<GameObject> platforms;
 
+	public event EventManager.EventAction OnDebuffPickup;
+
+
 	void Start () {
 		platforms = GameObject.FindGameObjectsWithTag("Plataform_static").Concat(GameObject.FindGameObjectsWithTag("Plataform_move")).ToList(); 
 	}
@@ -19,6 +22,7 @@ public class Debuff : MonoBehaviour {
 				platforms = GameObject.FindGameObjectsWithTag("Plataform_static").Concat(GameObject.FindGameObjectsWithTag("Plataform_move")).ToList();
 				int rnd = Random.Range (0, platforms.Count);
 				Destroy (other.gameObject);
+				if (OnDebuffPickup != null) OnDebuffPickup();
 				Debug.Log ("Destroyed Platform!");
 				Destroy(platforms [rnd]);
 			}
