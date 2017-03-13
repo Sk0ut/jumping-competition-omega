@@ -8,6 +8,8 @@ public class PowerUpJump : MonoBehaviour
 
     private bool _withBoostJump;
 
+    public static event EventManager.EventAction OnPowerupPickup;
+
     private void Start()
     {
         _withBoostJump = false;
@@ -20,6 +22,7 @@ public class PowerUpJump : MonoBehaviour
         Destroy(other.gameObject);
         _withBoostJump = true;
         StopCoroutine("Activate");
+        if (OnPowerupPickup != null) OnPowerupPickup();
     }
 
     private void Update()

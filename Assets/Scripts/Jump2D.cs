@@ -11,6 +11,8 @@ public class Jump2D : MonoBehaviour {
 	public Transform checkGround;
 	public Rigidbody2D rb;
 
+    public static event EventManager.EventAction OnPlayerJump;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -30,8 +32,10 @@ public class Jump2D : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (onGround && rb.velocity.y <= 0) {
-			rb.velocity = new Vector2 (0, 0);
+		if (onGround && rb.velocity.y <= 0)
+		{
+		    if (OnPlayerJump != null) OnPlayerJump();
+		    rb.velocity = new Vector2 (0, 0);
 			rb.AddForce (new Vector2 (0, jumpHeight));
 		}
 	}
