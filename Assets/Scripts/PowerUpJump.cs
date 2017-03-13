@@ -35,9 +35,9 @@ public class PowerUpJump : MonoBehaviour
 
     private IEnumerator Activate()
     {
-        Jump2D.jumpHeight = 700;
+        GetComponent<Jump2D>().JumpHeight = 700;
         yield return new WaitForSeconds(Timer);
         _withBoostJump = false;
-        Jump2D.jumpHeight = 450;
+        GetComponent<Jump2D>().JumpHeight = 450;
     }
 }

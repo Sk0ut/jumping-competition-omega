@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class Jump2D : MonoBehaviour {
 
-	public bool onGround;
-	public static float jumpHeight = 450f;
+	public float JumpHeight = 450f;
 
 	// Object which will check if the player is on the ground
-	public Transform checkGround;
-	public Rigidbody2D rb;
+	public Transform CheckGround;
+	public Rigidbody2D Rb;
+    private bool _onGround;
 
     public static event EventManager.EventAction OnPlayerJump;
 
-	void Start()
+    private void Start()
 	{
-		rb = GetComponent<Rigidbody2D>();
-		onGround = false;
+		Rb = GetComponent<Rigidbody2D>();
+		_onGround = false;
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) {
+    private void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.CompareTag("Plataform_static") || coll.gameObject.CompareTag("Plataform_move")) {
-			onGround = true;
+			_onGround = true;
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D coll) {
+    private void OnCollisionExit2D(Collision2D coll) {
 		if (coll.gameObject.CompareTag("Plataform_static") || coll.gameObject.CompareTag("Plataform_move")) {
-			onGround = false;
+			_onGround = false;
 		}
 	}
 
-	void FixedUpdate () {
-		if (onGround && rb.velocity.y <= 0)
+    private void FixedUpdate () {
+		if (_onGround && Rb.velocity.y <= 0)
 		{
 		    if (OnPlayerJump != null) OnPlayerJump();
-		    rb.velocity = new Vector2 (0, 0);
-			rb.AddForce (new Vector2 (0, jumpHeight));
+		    Rb.velocity = new Vector2 (0, 0);
+			Rb.AddForce (new Vector2 (0, JumpHeight));
 		}
 	}
 }

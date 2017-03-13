@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class Background : MonoBehaviour
 {
@@ -25,11 +26,8 @@ public class Background : MonoBehaviour
         }
 
         if (_replicated) return;
-        foreach (var player in _players)
+        if (_players.Select(player => player.transform.position).Any(IsInside))
         {
-            var pos = player.transform.position;
-            if (!IsInside(pos)) continue;
-
             _replicated = true;
             var replicaPos = transform.position + Vector3.up * _bounds.size.y;
             var replica = Instantiate(Prefab);

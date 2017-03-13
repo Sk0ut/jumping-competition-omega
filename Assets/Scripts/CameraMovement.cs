@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
     public GameObject player;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        GetComponent<Camera>().aspect = 9f / 16f;
         float delta = player.transform.position.y - transform.position.y;
         if (delta > 0)
         {

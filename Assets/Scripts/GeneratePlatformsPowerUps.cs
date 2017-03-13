@@ -1,163 +1,102 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
-public class GeneratePlatformsPowerUps : MonoBehaviour {
-	public GameBorderObserver gameBorderObserver;
-	public GameObject prefab1;
-    public GameObject prefab2;
-    public float mean = 2f;
-    public float sigma = 1f;
-    public int poolSize = 10;
-	public int JumpBoostFrequency = 10;
-	public int DebuffFrequency = 10;
+public class GeneratePlatformsPowerUps : MonoBehaviour
+{
+    public GameBorderObserver GameBorderObserver;
+    public GameObject Prefab1;
+    public GameObject Prefab2;
+    public float Mean = 2f;
+    public float Sigma = 1f;
+    public int PoolSize = 10;
+    public int JumpBoostFrequency = 10;
+    public int DebuffFrequency = 10;
 
-    private float posY;
-	private GameObject[] objectPool;
-	// Adicionado //
-	public GameObject PowerUp;
-	List<GameObject> powerUpPool;
-	public GameObject Debuff;
-	List<GameObject> debuffPool;
-	// Adicionado //
+    public GameObject PowerUp;
+    public GameObject Debuff;
 
-	// Use this for initialization
-	void Start () {
-		posY = gameBorderObserver.Top;
-		objectPool = new GameObject[poolSize];
-		// Adicionado //
-		powerUpPool = new List<GameObject>();
-		debuffPool = new List<GameObject>();
-		// Adicionado //
-        generatePlatforms();
-	}
+    private float _posY;
 
-	// Update is called once per frame
-	void Update () {
-		float curPosY = gameBorderObserver.Top;
-		clearOffScreen ();
+    private List<GameObject> _platforms;
+    private List<GameObject> _powerUps;
+    private List<GameObject> _debuffs;
 
-        if (curPosY - posY > generateNormalRandom(mean, sigma))
+    private void Start()
+    {
+        _posY = GameBorderObserver.Top;
+        _platforms = new List<GameObject>();
+        _powerUps = new List<GameObject>();
+        _debuffs = new List<GameObject>();
+    }
+
+    private void Update()
+    {
+        var curPosY = GameBorderObserver.Top;
+        ClearOffScreen();
+
+        if (!(curPosY - _posY > GenerateNormalRandom(Mean, Sigma))) return;
+        var position = new Vector3(Random.Range(GameBorderObserver.Left, GameBorderObserver.Right),
+            curPosY, 0);
+        var newPlat = GeneratePlatform(position);
+        _posY = newPlat.transform.position.y;
+    }
+
+    private GameObject GeneratePlatform(Vector3 position)
+    {
+        var prefab = Random.Range(0, 2) == 0 ? Prefab1 : Prefab2;
+        var newPlatform = Instantiate(prefab);
+        position.y += newPlatform.GetComponent<SpriteRenderer>().bounds.extents.y;
+        newPlatform.transform.position = position;
+        _platforms.Add(newPlatform);
+
+        var rnd = Random.Range(0, 100);
+        if (rnd < 50) GeneratePowerUp(newPlatform);
+        else GenerateDebuff(newPlatform);
+
+        return newPlatform;
+    }
+
+    private void ClearOffScreen()
+    {
+        _platforms.RemoveAll(plat =>
         {
-            generatePlatforms();
-			Vector3 position = new Vector3(UnityEngine.Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
-               	curPosY, 0);
-			checkPowerUps();
-			checkDebuffs ();
-			if (generatePlatform(position)) {
-				posY = curPosY;
-			}
+            if (plat == null) return true;
+            if (!(plat.transform.position.y < GameBorderObserver.Bottom))
+                return false;
+            Destroy(plat);
+            return true;
+        });
+        _powerUps.RemoveAll(p => p == null);
+        _debuffs.RemoveAll(p => p == null);
+    }
+
+    private void GeneratePowerUp(GameObject platform)
+    {
+        if (Random.Range(0, 100) <= JumpBoostFrequency)
+        {
+            var powUp = Instantiate(PowerUp);
+            powUp.transform.SetParent(platform.transform, false);
+            _powerUps.Add(powUp);
         }
     }
 
-	bool generatePlatform(Vector3 position){
-		for (int i = 0; i < objectPool.Length; ++i) {
-			if (!objectPool[i].activeSelf) {
-				int rnd = UnityEngine.Random.Range (0, 100);
-
-				if (rnd < 50)
-					generatePowerUp (objectPool [i]);
-				else
-					generateDebuff (objectPool [i]);
-				
-				objectPool[i].transform.position = position;
-				objectPool[i].SetActive (true);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	void clearOffScreen() {
-		for (int i = 0; i < objectPool.Length; ++i) {
-			if (objectPool[i] != null)
-			if (objectPool[i].activeSelf && objectPool[i].transform.position.y < gameBorderObserver.Bottom ) {
-				objectPool[i].SetActive (false);
-			}
-		}
-	}
-
-    void generatePlatforms()
+    private void GenerateDebuff(GameObject platform)
     {
-		float bottomBorder = gameBorderObserver.Bottom;
-        for (int i = 0; i < objectPool.Length; ++i)
+        if (Random.Range(0, 100) <= DebuffFrequency)
         {
-            if(objectPool[i] == null)
-            {
-				if (UnityEngine.Random.Range (0, 2) == 0) {
-					objectPool [i] = Instantiate(prefab1);
-				} else {
-					objectPool [i] = Instantiate(prefab2);
-				}
-                objectPool[i].SetActive(false);
-            }
-
-            if (objectPool[i].transform.position.y <= bottomBorder)
-            {
-                Destroy(objectPool[i]);
-
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                {
-                    objectPool[i] = Instantiate(prefab1);
-                }
-                else
-                {
-                    objectPool[i] = Instantiate(prefab2);
-                }
-                objectPool[i].SetActive(false);
-            }
+            var debff = Instantiate(Debuff);
+            debff.transform.SetParent(platform.transform, false);
+            _debuffs.Add(debff);
         }
     }
-	void generatePowerUp(GameObject platform) {
-		if (UnityEngine.Random.Range (0, 100) <= JumpBoostFrequency) {
-		    var powUp = Instantiate(PowerUp);
-		    powUp.transform.SetParent(platform.transform, false);
-			powerUpPool.Add(powUp);
-		}
-	}
-	void checkPowerUps()
-	{
-		powerUpPool = GameObject.FindGameObjectsWithTag("Power_Up").ToList(); 
-		var bottomBorder = gameBorderObserver.Bottom;
 
-		for (int i = 0; i < powerUpPool.Count; ++i) {
-			if (powerUpPool[i].transform.position.y <= bottomBorder) {
-				Destroy(powerUpPool[i]);
-				powerUpPool[i].SetActive(false);
-			}
-		}
-	}
-
-	void generateDebuff(GameObject platform) {
-		if (UnityEngine.Random.Range (0, 100) <= DebuffFrequency) {
-			var debff = Instantiate(Debuff);
-			debff.transform.SetParent(platform.transform, false);
-			debuffPool.Add(debff);
-		}
-	}
-	void checkDebuffs()
-	{
-		debuffPool = GameObject.FindGameObjectsWithTag("Debuff").ToList(); 
-		var bottomBorder = gameBorderObserver.Bottom;
-
-		for (int i = 0; i < debuffPool.Count; ++i) {
-			if (debuffPool[i].transform.position.y <= bottomBorder) {
-				Destroy(debuffPool[i]);
-				debuffPool[i].SetActive(false);
-			}
-		}
-	}
-	// Adicionado //
-    public static float generateNormalRandom(float mu, float sigma)
+    public static float GenerateNormalRandom(float mu, float sigma)
     {
-        float rand1 = UnityEngine.Random.Range(0.0f, 1.0f);
-        float rand2 = UnityEngine.Random.Range(0.0f, 1.0f);
+        var rand1 = Random.Range(0.0f, 1.0f);
+        var rand2 = Random.Range(0.0f, 1.0f);
 
-        float n = Mathf.Sqrt(-2.0f * Mathf.Log(rand1)) * Mathf.Cos((2.0f * Mathf.PI) * rand2);
-        float ret = mu + sigma * n;
-        if (ret < 1)
-            return 1;
-        else return ret;
+        var n = Mathf.Sqrt(-2.0f * Mathf.Log(rand1)) * Mathf.Cos((2.0f * Mathf.PI) * rand2);
+        var ret = mu + sigma * n;
+        return ret < 1 ? 1 : ret;
     }
 }

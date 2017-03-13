@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1597546142389304}
+  Observer: {fileID: 0}
 --- !u!212 &212605538982218684
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,6 +86,6 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: -1000
   m_Sprite: {fileID: 21300000, guid: 36e90c083c02b4cdba404300ebb64727, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.516}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.484}
   m_FlipX: 0
   m_FlipY: 0

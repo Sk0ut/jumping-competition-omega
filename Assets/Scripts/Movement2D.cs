@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Movement2D : MonoBehaviour {
 
-	public string axis = "Horizontal";
-	public float speed = 8f;
+	public string Input = "Player1";
+	public float Speed = 8f;
 	private Rigidbody2D _rb;
     private SpriteRenderer _sr;
 
@@ -19,9 +19,9 @@ public class Movement2D : MonoBehaviour {
 	void Update () {
 		
 		// Allows player to move  using left and right arrows
-		var h = Input.GetAxis(axis);
+		var h = UnityEngine.Input.GetAxis(Input);
 		// Updates player's position
-		_rb.velocity = new Vector2 (h * speed, _rb.velocity.y);
+		_rb.velocity = new Vector2 (h * Speed, _rb.velocity.y);
 
 	    // Flip sprite horizontally
 	    if (_rb.velocity.x < 0) _sr.flipX = true;
