@@ -101,6 +101,9 @@ GameObject:
   - component: {fileID: 16599435}
   - component: {fileID: 16599434}
   - component: {fileID: 16599433}
+  - component: {fileID: 16599436}
+  - component: {fileID: 16599438}
+  - component: {fileID: 16599437}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -155,6 +158,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16599436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e694df08c8d8a4e9f3c3b84cb97a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 756958166}
+  player2: {fileID: 1751727254}
+  maxDistance: 10
+--- !u!114 &16599437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c069cbd8489904eb7956f2b2849e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1345183668}
+  player: {fileID: 1751727254}
+  id: '"2"'
+--- !u!114 &16599438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c069cbd8489904eb7956f2b2849e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1690795319}
+  player: {fileID: 756958166}
+  id: '"1"'
 --- !u!4 &126090606 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4230383442929734, guid: 6c1b54795f235a242b705454aa6bc0a8,

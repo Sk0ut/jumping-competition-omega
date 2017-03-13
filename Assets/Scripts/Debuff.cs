@@ -17,7 +17,6 @@ public class Debuff : MonoBehaviour {
 	{
 		if (other.CompareTag ("Debuff")) {
 			for (int i = 0; i < PlatformsToBeDestroyed; i++) {
-				platforms = 
 					platforms = GameObject.FindGameObjectsWithTag("Plataform_static").Concat(GameObject.FindGameObjectsWithTag("Plataform_move")).ToList();
 				int rnd = UnityEngine.Random.Range (0, platforms.Count);
 				Destroy (other.gameObject);

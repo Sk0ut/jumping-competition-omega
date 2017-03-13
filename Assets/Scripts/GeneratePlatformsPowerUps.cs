@@ -40,14 +40,12 @@ public class GeneratePlatformsPowerUps : MonoBehaviour {
 
         if (curPosY - posY > generateNormalRandom(mean, sigma))
         {
-			Debug.Log ("Time to generate");
             generatePlatforms();
 			Vector3 position = new Vector3(UnityEngine.Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
                	curPosY, 0);
 			checkPowerUps();
 			checkDebuffs ();
 			if (generatePlatform(position)) {
-				Debug.Log ("New object");
 				posY = curPosY;
 			}
         }
