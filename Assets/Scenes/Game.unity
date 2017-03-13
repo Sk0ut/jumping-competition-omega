@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 756958166}
   player2: {fileID: 1751727254}
-  maxDistance: 10
+  maxDistance: 100
 --- !u!114 &16599441
 MonoBehaviour:
   m_ObjectHideFlags: 0
