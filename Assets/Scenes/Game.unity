@@ -297,6 +297,11 @@ Prefab:
       propertyPath: id
       value: '"2"'
       objectReference: {fileID: 0}
+    - target: {fileID: 114479954100732100, guid: 90e45d1e2f175a7468e14a95a609a8b8,
+        type: 2}
+      propertyPath: BombSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8da68f1c2681b934b87dce6cc17e1810, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90e45d1e2f175a7468e14a95a609a8b8, type: 2}
   m_IsPrefabParent: 0
@@ -452,6 +457,11 @@ Prefab:
       propertyPath: axis
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 114479954100732100, guid: 90e45d1e2f175a7468e14a95a609a8b8,
+        type: 2}
+      propertyPath: BombSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8da68f1c2681b934b87dce6cc17e1810, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90e45d1e2f175a7468e14a95a609a8b8, type: 2}
   m_IsPrefabParent: 0
