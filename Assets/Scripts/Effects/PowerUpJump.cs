@@ -8,7 +8,7 @@ public class PowerUpJump : MonoBehaviour
 
     private bool _withBoostJump;
 
-    public static event EventManager.EventAction OnPowerupPickup;
+    public event EventManager.EventAction OnPowerupPickup;
 
     private void Start()
     {

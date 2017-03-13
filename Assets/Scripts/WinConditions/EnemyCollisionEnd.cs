@@ -7,7 +7,7 @@ public class EnemyCollisionEnd : GameEnding {
 	public string id;
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Enemy") {
+		if (coll.gameObject.CompareTag("Enemy")) {
 			onGameEnd ("Player " + id + " collided with an enemy");
 		}
 	}

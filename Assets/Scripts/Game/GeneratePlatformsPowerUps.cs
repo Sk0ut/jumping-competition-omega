@@ -8,8 +8,7 @@ public class GeneratePlatformsPowerUps : MonoBehaviour
     public GameObject Prefab2;
     public float Mean = 2f;
     public float Sigma = 1f;
-    public int PoolSize = 10;
-    public int JumpBoostFrequency = 10;
+    public int JumpBoostFrequency = 40;
     public int DebuffFrequency = 10;
 
     public GameObject PowerUp;

@@ -11,7 +11,7 @@ public class Jump2D : MonoBehaviour {
 	public Rigidbody2D Rb;
     private bool _onGround;
 
-    public static event EventManager.EventAction OnPlayerJump;
+    public event EventManager.EventAction OnPlayerJump;
 
     private void Start()
 	{

@@ -5,21 +5,21 @@ public class Sound : MonoBehaviour {
 	public AudioClip BounceSound;
 	public AudioClip JumpBoostSound;
 
-	AudioSource _sound;
+    private AudioSource _sound;
 
     private void OnEnable()
     {
-        Jump2D.OnPlayerJump += PlayJumpSound;
-        PowerUpJump.OnPowerupPickup += PlayPowerupSound;
+        GetComponent<Jump2D>().OnPlayerJump += PlayJumpSound;
+        GetComponent<PowerUpJump>().OnPowerupPickup += PlayPowerupSound;
     }
 
     private void OnDisable()
     {
-        Jump2D.OnPlayerJump -= PlayJumpSound;
-        PowerUpJump.OnPowerupPickup -= PlayPowerupSound;
+        GetComponent<Jump2D>().OnPlayerJump -= PlayJumpSound;
+        GetComponent<PowerUpJump>().OnPowerupPickup -= PlayPowerupSound;
     }
 
-    void Start () {
+    private void Start () {
 		_sound = GetComponent<AudioSource> ();
 		_sound.playOnAwake = false;
 	}

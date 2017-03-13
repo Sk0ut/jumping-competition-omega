@@ -100,8 +100,12 @@ GameObject:
   m_Component:
   - component: {fileID: 16599435}
   - component: {fileID: 16599434}
+  - component: {fileID: 16599441}
   - component: {fileID: 16599433}
   - component: {fileID: 16599436}
+  - component: {fileID: 16599439}
+  - component: {fileID: 16599438}
+  - component: {fileID: 16599437}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -138,7 +142,6 @@ MonoBehaviour:
   Prefab2: {fileID: 1018713907298440, guid: 47dc6b370c58749db974caad7dd24ac0, type: 2}
   Mean: 2
   Sigma: 1
-  PoolSize: 100
   JumpBoostFrequency: 10
   DebuffFrequency: 10
   PowerUp: {fileID: 1341437299185620, guid: 4db6fd5371d084812a1e7eae56040c84, type: 2}
@@ -167,6 +170,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5554ff9881f64822951b8adad03e3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &16599437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c069cbd8489904eb7956f2b2849e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1345183668}
+  player: {fileID: 1751727254}
+  id: '"2"'
+--- !u!114 &16599438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c069cbd8489904eb7956f2b2849e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1690795319}
+  player: {fileID: 756958166}
+  id: '"1"'
+--- !u!114 &16599439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e694df08c8d8a4e9f3c3b84cb97a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 756958166}
+  player2: {fileID: 1751727254}
+  maxDistance: 10
+--- !u!114 &16599441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16599432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a1b01e97651774e8946589b3fcc2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownDistance: 10
+  spawningProbability: 15
+  enemyPrefab: {fileID: 1862640257321352, guid: b8b8e487906a7694a963a80dd9d4a594,
+    type: 2}
+  gameBorderObserver: {fileID: 16599433}
 --- !u!4 &126090606 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4230383442929734, guid: 6c1b54795f235a242b705454aa6bc0a8,
@@ -230,6 +291,11 @@ Prefab:
         type: 2}
       propertyPath: Input
       value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630681581069798, guid: 90e45d1e2f175a7468e14a95a609a8b8,
+        type: 2}
+      propertyPath: id
+      value: '"2"'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90e45d1e2f175a7468e14a95a609a8b8, type: 2}
