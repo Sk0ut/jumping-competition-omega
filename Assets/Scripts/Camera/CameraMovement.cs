@@ -8,11 +8,9 @@ public class CameraMovement : MonoBehaviour
 		GetComponent<Camera> ().aspect = 9f / 16f;
 	}
 
-    void LateUpdate()
-    {
+    void LateUpdate() {
         float delta = player.transform.position.y - transform.position.y;
-        if (delta > 0)
-        {
+        if (delta > 0) {
 			transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         }
     }
