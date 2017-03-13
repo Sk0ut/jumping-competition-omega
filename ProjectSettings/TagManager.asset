@@ -9,6 +9,7 @@ TagManager:
   - Plataform_static
   - Plataform_move
   - Debuff
+  - Enemy
   layers:
   - Default
   - TransparentFX
