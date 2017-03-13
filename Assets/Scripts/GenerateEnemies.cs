@@ -7,7 +7,6 @@ public class GenerateEnemies : MonoBehaviour {
     public int cooldownDistance = 10;
     public int spawningProbability = 15;
     public GameObject enemyPrefab;
-    public Camera playerCamera;
 
     private float currentCooldown;
     private float posY;
@@ -31,7 +30,7 @@ public class GenerateEnemies : MonoBehaviour {
             {
                 currentCooldown = cooldownDistance;
                 GameObject enemy = Instantiate(enemyPrefab);
-                enemy.transform.position = new Vector3(playerCamera.ViewportToWorldPoint(new Vector3(Random.value, 0)).x,
+				enemy.transform.position = new Vector3(Random.Range(gameBorderObserver.Left, gameBorderObserver.Right),
                    curPosY, 0);
                 currentCooldown = cooldownDistance;
             }
