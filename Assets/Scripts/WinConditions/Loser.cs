@@ -14,7 +14,8 @@ public class Loser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (GameObject.FindGameObjectWithTag ("Player").name);
+		//Debug.Log (GameObject.FindGameObjectWithTag ("Player").name);
 		loser.text = "GAME ENDED!!\n" + GameObject.FindGameObjectWithTag("Player").name + " has lost!" ; 
+		GameObject.FindGameObjectWithTag("Player").transform.localScale = new Vector3(0, 0, 0);
 	}
 }
