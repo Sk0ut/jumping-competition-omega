@@ -5,26 +5,31 @@ using UnityEngine;
 public class Jump2D : MonoBehaviour {
 
 	public float JumpHeight = 450f;
-
-	// Object which will check if the player is on the ground
-	public Transform CheckGround;
-	public Rigidbody2D Rb;
+    public GameObject BounceParticles;
+    private Rigidbody2D _rb;
 
     public event EventManager.EventAction OnPlayerJump;
 
     private void Start()
 	{
-		Rb = GetComponent<Rigidbody2D>();
+		_rb = GetComponent<Rigidbody2D>();
 	}
 
-    private void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.CompareTag("Plataform_static") || coll.gameObject.CompareTag("Plataform_move")) {
-		    if (Rb.velocity.y <= 0)
+    private void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.CompareTag("Plataform_static") || other.gameObject.CompareTag("Plataform_move")) {
+		    if (_rb.velocity.y <= 0)
 		    {
 		        if (OnPlayerJump != null) OnPlayerJump();
-		        Rb.velocity = new Vector2 (0, 0);
-		        Rb.AddForce (new Vector2 (0, JumpHeight));
-		        coll.gameObject.transform.FindChild("Platform_Rig").GetComponent<Animator>().SetTrigger("Bouncing");
+		        var reflection = _rb.velocity;
+		        reflection.y *= -1;
+		        _rb.velocity = new Vector2 (0, 0);
+		        _rb.AddForce (new Vector2 (0, JumpHeight));
+		        other.gameObject.transform.FindChild("Platform_Rig").GetComponent<Animator>().SetTrigger("Bouncing");
+
+		        var angle = Vector2.Angle(Vector2.right, reflection);
+		        var particles = Instantiate(BounceParticles);
+		        particles.transform.position = other.contacts[0].point;
+		        particles.transform.eulerAngles = new Vector3(angle-180, -90, 90);
 		    }
 		}
 	}

@@ -8,6 +8,7 @@ public class EnemyCollisionEnd : GameEnding {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.CompareTag("Enemy")) {
+			DontDestroyOnLoad (this.gameObject);
 			onGameEnd ("Player " + id + " collided with an enemy");
 		}
 	}

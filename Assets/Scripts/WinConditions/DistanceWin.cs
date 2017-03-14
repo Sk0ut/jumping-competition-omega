@@ -10,8 +10,10 @@ public class DistanceWin : GameEnding {
 
 	void Update () {
 		if (player1.transform.position.y - player2.transform.position.y > maxDistance) {
+			DontDestroyOnLoad (player2);
 			onGameEnd ("Player 1 left player 2 behind");
 		} else if (player2.transform.position.y - player1.transform.position.y > maxDistance) {
+			DontDestroyOnLoad (player1);
 			onGameEnd ("Player 2 left player 1 behind");
 		}
 	}
