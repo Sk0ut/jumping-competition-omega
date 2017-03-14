@@ -10,6 +10,7 @@ TagManager:
   - Plataform_move
   - Debuff
   - Enemy
+  - EndGameInfo
   layers:
   - Default
   - TransparentFX

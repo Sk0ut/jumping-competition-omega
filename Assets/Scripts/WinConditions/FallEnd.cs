@@ -10,8 +10,7 @@ public class FallEnd : GameEnding
 	void Update ()
 	{
 		if (playerCamera.WorldToViewportPoint (player.transform.position).y < 0f) {
-			DontDestroyOnLoad (player);
-			onGameEnd ("Player " + id + " fell down");
+			onGameEnd (string.Format("O jogador {0} caiu das plataformas!", id));
 		}
 	}
 }

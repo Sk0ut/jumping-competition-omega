@@ -7,7 +7,7 @@ public class GameEnding : MonoBehaviour {
 
 	public void onGameEnd(string reason) {
 		// change to end game screen
-		Debug.Log("Game Finished: " + reason);
+		GameObject.FindGameObjectWithTag ("EndGameInfo").GetComponent<EndGameInfo>().reason = reason;
 		SceneManager.LoadScene ("Scenes/EndGame");
 	}
 }

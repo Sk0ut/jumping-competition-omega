@@ -21,17 +21,16 @@ public class ValterMovementScript : MonoBehaviour {
     void Start () {
         var dist = (transform.position - Camera.main.transform.position).z;
 
-        var rightBorder = Camera.main.ViewportToWorldPoint(
+        rightBorder = Camera.main.ViewportToWorldPoint(
             new Vector3(1, 0, dist)
         ).x;
-        var leftBorder = Camera.main.ViewportToWorldPoint(
+        leftBorder = Camera.main.ViewportToWorldPoint(
             new Vector3(0, 0, dist)
         ).x;
-        Debug.Log(leftBorder);
-        var topBorder = Camera.main.ViewportToWorldPoint(
+        topBorder = Camera.main.ViewportToWorldPoint(
            new Vector3(0, 0, dist)
        ).y;
-        var bottomBorder = Camera.main.ViewportToWorldPoint(
+        bottomBorder = Camera.main.ViewportToWorldPoint(
             new Vector3(0, 1, dist)
         ).y;
     }
