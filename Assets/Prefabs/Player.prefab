@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpHeight: 450
-  CheckGround: {fileID: 0}
-  Rb: {fileID: 0}
+  BounceParticles: {fileID: 1419038323963384, guid: 363b1a8a42225419f96d70cee68bdb2d,
+    type: 2}
 --- !u!114 &114101142991824272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BounceSound: {fileID: 8300000, guid: c74200c2f12f2f64b95ffa59aba7cf35, type: 3}
   JumpBoostSound: {fileID: 8300000, guid: b89c100016b2b694c8db39310d596313, type: 3}
+  BombSound: {fileID: 0}
 --- !u!114 &114523927014744258
 MonoBehaviour:
   m_ObjectHideFlags: 1
