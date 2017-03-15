@@ -22,7 +22,7 @@ TagManager:
   - 
   - Player
   - Ground
-  - 
+  - Particles
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles
+    uniqueID: 4238585665
     locked: 0
   - name: Platforms
     uniqueID: 230242477

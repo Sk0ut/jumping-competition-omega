@@ -77,7 +77,6 @@ public class ValterMovementScript : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Debug.Log(transform.position);
         if (transform.position.x <= leftBorder)
             direction = new Vector2(1, -1);
         else if (transform.position.x >= rightBorder)

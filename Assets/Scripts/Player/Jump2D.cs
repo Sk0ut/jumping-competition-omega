@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +28,11 @@ public class Jump2D : MonoBehaviour {
 		        other.gameObject.transform.FindChild("Platform_Rig").GetComponent<Animator>().SetTrigger("Bouncing");
 
 		        var angle = Vector2.Angle(Vector2.right, reflection);
+		        angle = Mathf.Clamp(angle, 30, 140);
 		        var particles = Instantiate(BounceParticles);
 		        particles.transform.position = other.contacts[0].point;
-		        particles.transform.eulerAngles = new Vector3(angle-180, -90, 90);
+		        particles.transform.eulerAngles = new Vector3(angle, -90, 0);
+		        particles.transform.localScale = new Vector3(1, 1, -1);
 		    }
 		}
 	}
