@@ -214,6 +214,8 @@ MonoBehaviour:
   player1: {fileID: 756958166}
   player2: {fileID: 1751727254}
   maxDistance: 70
+  player1score: {fileID: 1160815582}
+  player2score: {fileID: 417847940}
 --- !u!114 &16599440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,7 +646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65.7, y: 275}
+  m_AnchoredPosition: {x: 92, y: 137}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417847940
@@ -749,7 +751,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1031679178}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e64ef0e6887d9c149ad5d9ad666587e7, type: 3}
   m_Name: 
@@ -874,7 +876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 275}
+  m_AnchoredPosition: {x: -200, y: 138}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160815582
@@ -1116,7 +1118,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1345183662}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e64ef0e6887d9c149ad5d9ad666587e7, type: 3}
   m_Name: 
